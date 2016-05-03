@@ -143,6 +143,10 @@ module.exports = yeoman.Base.extend({
 
   install: function() {
     this.installDependencies({bower: false, skipInstall: this.options['skip-install']});
+  },
+
+  end: function () {
+    this.log( yosay('All done! Edit `src/' + this.scriptName + '.coffee`. Your tests are in `test/' + this.scriptName + '.coffee`. Run them with `npm test`.') );
   }
 
 });

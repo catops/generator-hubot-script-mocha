@@ -4,22 +4,17 @@
   "version": "1.0.0",
   "author": "<%= userName %> <<%= userEmail %>>",
   "license": "CC0",
-
   "keywords": <%= scriptKeywords %>,
-
   "repository": {
     "type": "git",
-    "url": "git://github.com/<%= userName %>/<%= appname %>.git"
+    "url": "git://github.com/catops/<%= appname %>.git"
   },
-
   "bugs": {
-    "url": "https://github.com/<%= userName %>/<%= appname %>/issues"
+    "url": "https://github.com/catops/<%= appname %>/issues"
   },
-
   "dependencies": {
     "coffee-script": "~1.6"
   },
-
   "devDependencies": {
     "chai": "*",
     "grunt": "^1.0.1",
@@ -34,9 +29,7 @@
     "sinon": "*",
     "sinon-chai": "*"
   },
-
   "main": "index.coffee",
-
   "scripts": {
     "test": "grunt test"
   }

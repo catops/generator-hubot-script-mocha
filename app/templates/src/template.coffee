@@ -32,8 +32,7 @@
 module.exports = (robot) ->
   # Here's an instance of the above class but we're not actually calling any of the
   # methods yet. You can call them with `gitHub.add('something')`.
-  gitHub = new GitHub robot
-<% } else { %>module.exports = (robot) -><% } %>
+  gitHub = new GitHub robot<% } else { %>module.exports = (robot) -><% } %>
 
   robot.respond /hello/, (msg) ->
     msg.reply "hello!"
