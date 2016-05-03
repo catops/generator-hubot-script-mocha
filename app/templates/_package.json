@@ -1,0 +1,43 @@
+{
+  "name": "<%= appname %>",
+  "description": "<%= scriptDescription %>",
+  "version": "1.0.0",
+  "author": "<%= userName %> <<%= userEmail %>>",
+  "license": "CC0",
+
+  "keywords": <%= scriptKeywords %>,
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%= userName %>/<%= appname %>.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/<%= userName %>/<%= appname %>/issues"
+  },
+
+  "dependencies": {
+    "coffee-script": "~1.6"
+  },
+
+  "devDependencies": {
+    "chai": "*",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-mocha-test": "~0.7.0",
+    "grunt-release": "~0.6.0",
+    "hubot": "^2.18.0",
+    "hubot-mock-adapter": "^1.0.0",
+    "hubot-mock-adapter-helper": "0.0.1",
+    "matchdep": "~0.1.2",
+    "mocha": "*",
+    "sinon": "*",
+    "sinon-chai": "*"
+  },
+
+  "main": "index.coffee",
+
+  "scripts": {
+    "test": "grunt test"
+  }
+}
