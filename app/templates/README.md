@@ -1,4 +1,4 @@
-# <%= appname %> [![Build Status](https://img.shields.io/travis/catops/<%= appname %>.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/catops/<%= appname %>.svg?branch=master) [![npm](https://img.shields.io/npm/v/<%= appname %>.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/<%= appname %>)
+# <%= appname %> [![Build Status](https://img.shields.io/travis/catops/<%= appname %>.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/catops/<%= appname %>) [![npm](https://img.shields.io/npm/v/<%= appname %>.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/<%= appname %>)
 
 :cat: <%= scriptDescription %>
 

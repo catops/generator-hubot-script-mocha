@@ -1,4 +1,4 @@
-# CatOps Hubot Script Generator [![Build Status][travis-image]][travis-url][![NPM version][npm-image]][npm-url]
+# CatOps Hubot Script Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url]
 
 :cat: A Yeoman generator for creating [Hubot](https://hubot.github.com/) scripts with robust Mocha tests.
 
@@ -28,7 +28,7 @@ Please read our general [contributing guidelines](CONTRIBUTING.md).
 2. [LICENSE](LICENSE)
 3. [CFPB Source Code Policy](https://github.com/cfpb/source-code-policy/)
 
-[npm-image]: https://www.npmjs.com/package/catops-teams
-[npm-url]: https://img.shields.io/npm/v//generator-catops-script.svg?maxAge=2592000&style=flat-square
+[npm-image]: https://img.shields.io/npm/v/generator-catops-script.svg?maxAge=2592000&style=flat-square
+[npm-url]: https://www.npmjs.com/package/generator-catops-script
 [travis-image]: https://img.shields.io/travis/catops/generator-catops-script.svg?maxAge=2592000&style=flat-square
-[travis-url]: https://travis-ci.org/catops/generator-catops-script.svg?branch=master
+[travis-url]: https://travis-ci.org/catops/generator-catops-script
