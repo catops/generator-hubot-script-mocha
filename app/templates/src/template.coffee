@@ -16,7 +16,7 @@
 
 <% if (needStorage) { %>class GitHub
   constructor: (@robot) ->
-    @config = process.env.HUBOT_GITHUB_CONFIG or 'default state goes here'
+    @config = process.env.HUBOT_GITHUB_CONFIG or 'whatever the default value should be'
     github = @robot.brain.get 'github'
     @github = github or []
     @robot.brain.set 'github', @github

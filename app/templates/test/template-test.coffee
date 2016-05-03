@@ -53,11 +53,11 @@ describe '<%= scriptName %>', ->
 
   describe 'other really cool feature', ->
     # if it's just a general `hear` event, use `sendMessage`
-    it 'denies your rly if you\'re not an admin', (done) ->
+    it "ignores you if you're not an admin", (done) ->
       process.env.HUBOT_AUTH_ADMIN = []
       messageHelper.sendMessage done, 'orly', (result) ->
         expect(result[0]).to.equal('Sorry, only admins can do that.')
 
-    it 'confirms your rly if you\'re an admin', (done)->
+    it "reponds if you're an admin", (done)->
       messageHelper.sendMessage done, 'orly', (result) ->
         expect(result[0]).to.equal('yarly')

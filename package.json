@@ -1,18 +1,17 @@
 {
   "name": "generator-catops-script",
   "version": "1.0.0",
-  "description": "A Hubot script generator for Yeoman",
+  "description": "A generator for creating Hubot scripts with Mocha tests",
   "keywords": [
     "yeoman-generator",
     "hubot",
-    "catops",
     "hubot-scripts"
   ],
   "homepage": "https://github.com/catops/generator-catops-script",
   "bugs": "https://github.com/catops/generator-catops-script/issues",
   "author": {
     "name": "Consumer Financial Protection Bureau",
-    "email": "christopher.contolini@cfpb.gov",
+    "email": "contolini@users.noreply.github.com",
     "url": "https://cfpb.github.io"
   },
   "main": "app/index.js",

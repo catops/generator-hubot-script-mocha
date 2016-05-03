@@ -28,8 +28,8 @@ var extractScriptName = function (appname) {
 };
 
 var prepareKeywords = function(keywords) {
-  var ky = ['hubot, hubot-scripts, catops'];
-  ky = ky.concat(keywords.split(','));
+  var ky = ['hubot', 'hubot-scripts', 'catops'];
+  ky = _.union(ky, keywords.split(','));
   for (i = 0; i < ky.length; ++i) {
     ky[i] = '"' + ky[i].trim() + '"';
   }
@@ -39,6 +39,7 @@ var prepareKeywords = function(keywords) {
 module.exports = yeoman.Base.extend({
 
   initializing: function() {
+      this.option('skip-install');
       this.pkg = require('../package.json');
       banner();
       this.log(
@@ -141,7 +142,7 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function() {
-    this.installDependencies({bower: false, skipInstall: this.option('skip-install')});
+    this.installDependencies({bower: false, skipInstall: this.options['skip-install']});
   }
 
 });
