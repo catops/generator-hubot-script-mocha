@@ -1,6 +1,6 @@
 # CatOps Hubot Script Generator [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url]
 
-:cat: A Yeoman generator for creating [Hubot](https://hubot.github.com/) scripts with robust Mocha tests.
+:cat: A Yeoman generator for creating Hubot scripts with brain storage, environment variables and robust mocha tests.
 
 ## Installation
 

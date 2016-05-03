@@ -19,10 +19,9 @@ var osLibraries = [
 ];
 
 var extractScriptName = function (appname) {
-  var slugged = _.slugify(appname),
-      match = slugged.match(/^catops-(.+)/);
-  if (match && match.length === 2) {
-    return match[1].toLowerCase();
+  var slugged = _.slugify(appname);
+  if (!/^(catops|hubot)-(.+)/.test(slugged)) {
+    return 'catops-' + slugged;
   }
   return slugged;
 };
@@ -56,17 +55,17 @@ module.exports = yeoman.Base.extend({
       var prompts = [
         {
           name: 'scriptName',
-          message: 'Base name of script',
+          message: 'Name of your Hubot script',
           default: scriptName
         },
         {
           name: 'scriptDescription',
           message: 'Description',
-          default: 'A hubot script that does the things'
+          default: 'A Hubot script that does the things'
         },
         {
           name: 'scriptKeywords',
-          message: 'Keywords',
+          message: 'Keywords (comma-separated)',
           default: 'hubot, hubot-scripts, catops'
         },
         {
@@ -84,8 +83,8 @@ module.exports = yeoman.Base.extend({
       ];
 
       this.prompt(prompts, function (props) {
-        this.scriptName = props.scriptName.toLowerCase();
-        this.appname = 'catops-' + this.scriptName;
+        this.appname = props.scriptName;
+        this.scriptName = props.scriptName.toLowerCase().replace('catops-', '').replace('hubot-', '');
         this.scriptDescription = props.scriptDescription;
         this.needStorage = props.needStorage;
         this.envVariable = props.needConfig
