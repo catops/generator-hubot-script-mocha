@@ -18,6 +18,9 @@ cd hubot-awesome-script
 yo catops-script
 ```
 
+Run your script's tests with: `npm test`
+Watch for file changes and run tests automatically with: `npm run watch`
+
 ## Contributing
 
 Please read our general [contributing guidelines](CONTRIBUTING.md).
