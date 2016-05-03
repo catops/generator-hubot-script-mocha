@@ -47,12 +47,12 @@ describe '<%= scriptName %>', ->
 
   describe 'really cool feature', ->
     it 'greets you back', (done)->
-      # if it's a `respond` event, use `replyMessage`
+      # If the bot is `reply`ing to the user, use `replyMessage`
       messageHelper.replyMessage done, 'hubot hello', (result) ->
         expect(result[0]).to.equal('hello!')
 
   describe 'other really cool feature', ->
-    # if it's just a general `hear` event, use `sendMessage`
+    # Otherwise, use `sendMessage`
     it "ignores you if you're not an admin", (done) ->
       process.env.HUBOT_AUTH_ADMIN = []
       messageHelper.sendMessage done, 'orly', (result) ->
@@ -61,3 +61,17 @@ describe '<%= scriptName %>', ->
     it "reponds if you're an admin", (done)->
       messageHelper.sendMessage done, 'orly', (result) ->
         expect(result[0]).to.equal('yarly')
+<% if (needStorage) { %>
+  describe 'storage features', ->
+    it "adds items", (done) ->
+      messageHelper.sendMessage done, 'hubot add foo to the thing', (result) ->
+        expect(result[0]).to.equal('Alright, I added foo to the thing.')
+
+    it "removes items", (done) ->
+      messageHelper.sendMessage done, 'hubot remove foo from the thing', (result) ->
+        expect(result[0]).to.equal('Okay, I removed foo from the thing.')
+
+    it "only lets admins remove items", (done) ->
+      process.env.HUBOT_AUTH_ADMIN = []
+      messageHelper.sendMessage done, 'hubot remove foo from the thing', (result) ->
+        expect(result[0]).to.equal('Sorry, only admins can remove stuff.')<% } %>

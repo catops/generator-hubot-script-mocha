@@ -18,7 +18,7 @@ var osLibraries = [
   'https://github.com/cfpb/open-source-project-template/archive/master.zip'
 ];
 
-var extractScriptName = function (appname) {
+var getScriptName = function (appname) {
   var slugged = _.slugify(appname);
   if (!/^(catops|hubot)-(.+)/.test(slugged)) {
     return 'catops-' + slugged;
@@ -26,13 +26,21 @@ var extractScriptName = function (appname) {
   return slugged;
 };
 
+function camelizeScriptName(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  }).replace(/\s+|-|_/g, '');
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 var prepareKeywords = function(keywords) {
   var ky = ['hubot', 'hubot-scripts', 'catops'];
-  ky = _.union(ky, keywords.split(','));
-  for (i = 0; i < ky.length; ++i) {
-    ky[i] = '"' + ky[i].trim() + '"';
-  }
-  return '[' + ky.join(',') + ']';
+  keywords = keywords.split(',').map(function(k){return k.trim()})
+  ky = _.union(ky, keywords);
+  return '["' + ky.join('","') + '"]';
 }
 
 module.exports = yeoman.Base.extend({
@@ -50,7 +58,7 @@ module.exports = yeoman.Base.extend({
   prompting: function() {
       var done = this.async();
 
-      var scriptName = extractScriptName(this.appname);
+      var scriptName = getScriptName(this.appname);
 
       var prompts = [
         {
@@ -85,10 +93,13 @@ module.exports = yeoman.Base.extend({
       this.prompt(prompts, function (props) {
         this.appname = props.scriptName;
         this.scriptName = props.scriptName.toLowerCase().replace('catops-', '').replace('hubot-', '');
+        this.scriptNameCamelized = camelizeScriptName(this.scriptName);
+        this.robotClassName = capitalizeFirstLetter(camelizeScriptName(this.scriptName));
+        this.scriptNameUppercased = this.scriptNameCamelized.toUpperCase();
         this.scriptDescription = props.scriptDescription;
         this.needStorage = props.needStorage;
         this.envVariable = props.needConfig
-                         ? 'HUBOT_' + this.scriptName.toUpperCase() + '_CONFIG - Describe your environment variable.'
+                         ? 'HUBOT_' + this.scriptNameCamelized.toUpperCase() + '_SETTING - Describe your environment variable.'
                          : 'LIST_OF_ENV_VARS_TO_SET - Describe any optional/required environment variables.'
         this.scriptKeywords = prepareKeywords(props.scriptKeywords);
 

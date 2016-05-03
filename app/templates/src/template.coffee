@@ -14,25 +14,21 @@
 # Author:
 #   <%= userName %>
 
-<% if (needStorage) { %>class GitHub
+<% if (needStorage) { %>class <%= robotClassName %>Robot
   constructor: (@robot) ->
-    @config = process.env.HUBOT_GITHUB_CONFIG or 'whatever the default value should be'
-    github = @robot.brain.get 'github'
-    @github = github or []
-    @robot.brain.set 'github', @github
+    @config = process.env.HUBOT_<%= scriptNameUppercased %>_SETTING or 'whatever the default value should be'
+    <%= scriptNameCamelized %> = @robot.brain.get '<%= scriptNameCamelized %>'
+    @<%= scriptNameCamelized %> = <%= scriptNameCamelized %> or []
+    @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
   add: (item) ->
-    @github.push item
-    @robot.brain.set 'github', @github
-    msg.send "Okay, I added #{item}."
+    @<%= scriptNameCamelized %>.push item
+    @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
   remove: (item) ->
-    @github = @github.filter (i) -> i isnt item
-    @robot.brain.set 'github', @github
-    msg.send "Okay, I removed #{item}."
+    @<%= scriptNameCamelized %> = @<%= scriptNameCamelized %>.filter (i) -> i isnt item
+    @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
 
 module.exports = (robot) ->
-  # Here's an instance of the above class but we're not actually calling any of the
-  # methods yet. You can call them with `gitHub.add('something')`.
-  gitHub = new GitHub robot<% } else { %>module.exports = (robot) -><% } %>
+  <%= scriptNameCamelized %>Robot = new <%= robotClassName %>Robot robot<% } else { %>module.exports = (robot) -><% } %>
 
   robot.respond /hello/, (msg) ->
     msg.reply "hello!"
@@ -43,3 +39,17 @@ module.exports = (robot) ->
     else
       message = "Sorry, only admins can do that."
     msg.send message
+
+  <% if (needStorage) { %>robot.respond /add (\S*) to the thing/, (msg) ->
+    item = msg.match[1]
+    <%= scriptNameCamelized %>Robot.add(item)
+    msg.send "Alright, I added #{item} to the thing."
+
+  robot.respond /remove (\S*) from the thing/, (msg) ->
+    item = msg.match[1]
+    if robot.auth.isAdmin msg.envelope.user
+      <%= scriptNameCamelized %>Robot.remove(item)
+      message = "Okay, I removed #{item} from the thing."
+    else
+      message = "Sorry, only admins can remove stuff."
+    msg.send message<% } %>
