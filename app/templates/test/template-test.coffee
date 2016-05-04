@@ -1,5 +1,6 @@
 chai = require 'chai'
 sinon = require 'sinon'
+_ = require 'lodash'
 expect = chai.expect
 helper = require 'hubot-mock-adapter-helper'
 TextMessage = require('hubot/src/message').TextMessage
@@ -10,12 +11,21 @@ class Helper
   constructor: (@robot, @adapter, @user)->
 
   sendMessage: (done, message, callback)->
+    if typeof done == 'string'
+      callback = message or ->
+      message = done
+      done = ->
     @sendMessageHubot(@user, message, callback, done, 'send')
 
   replyMessage: (done, message, callback)->
+    if typeof done == 'string'
+      callback = message
+      message = done
+      done = ->
     @sendMessageHubot(@user, message, callback, done, 'reply')
 
-  sendMessageHubot: (user, message, callback, done, event)->
+  sendMessageHubot: (user, message, callback, done, event) ->
+    done = _.once done
     @adapter.on event, (envelop, string) ->
       try
         callback(string)
@@ -23,7 +33,6 @@ class Helper
       catch e
         done e
     @adapter.receive new TextMessage(user, message)
-
 
 describe '<%= scriptName %>', ->
   {robot, user, adapter} = {}
