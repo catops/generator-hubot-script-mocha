@@ -30,26 +30,26 @@
 module.exports = (robot) ->
   <%= scriptNameCamelized %>Robot = new <%= robotClassName %>Robot robot<% } else { %>module.exports = (robot) -><% } %>
 
-  robot.respond /hello/, (msg) ->
-    msg.reply "hello!"
+  robot.respond /hello/, (res) ->
+    res.reply "hello!"
 
-  robot.hear /orly/, (msg) ->
-    if robot.auth.isAdmin msg.envelope.user
+  robot.hear /orly/, (res) ->
+    if robot.auth.isAdmin res.envelope.user
       message = "yarly"
     else
       message = "Sorry, only admins can do that."
-    msg.send message
+    res.send message
 
-  <% if (needStorage) { %>robot.respond /add (\S*) to the thing/, (msg) ->
-    item = msg.match[1]
+  <% if (needStorage) { %>robot.respond /add (\S*) to the thing/, (res) ->
+    item = res.match[1]
     <%= scriptNameCamelized %>Robot.add(item)
-    msg.send "Alright, I added #{item} to the thing."
+    res.send "Alright, I added #{item} to the thing."
 
-  robot.respond /remove (\S*) from the thing/, (msg) ->
-    item = msg.match[1]
-    if robot.auth.isAdmin msg.envelope.user
+  robot.respond /remove (\S*) from the thing/, (res) ->
+    item = res.match[1]
+    if robot.auth.isAdmin res.envelope.user
       <%= scriptNameCamelized %>Robot.remove(item)
       message = "Okay, I removed #{item} from the thing."
     else
       message = "Sorry, only admins can remove stuff."
-    msg.send message<% } %>
+    res.send message<% } %>
