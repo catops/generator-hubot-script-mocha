@@ -5,14 +5,14 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('catops-script generator', function () {
+describe('hubot-script-mocha generator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('catops-script:app', [
+      this.app = helpers.createGenerator('hubot-script-mocha:app', [
         '../../app'
       ]);
       done();
