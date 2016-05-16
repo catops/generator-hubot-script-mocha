@@ -20,8 +20,8 @@ var osLibraries = [
 
 var getScriptName = function (appname) {
   var slugged = _.slugify(appname);
-  if (!/^(catops|hubot)-(.+)/.test(slugged)) {
-    return 'catops-' + slugged;
+  if (!/^hubot\-(.+)/.test(slugged)) {
+    return 'hubot-' + slugged;
   }
   return slugged;
 };
@@ -37,7 +37,7 @@ function capitalizeFirstLetter(string) {
 }
 
 var prepareKeywords = function(keywords) {
-  var ky = ['hubot', 'hubot-scripts', 'catops'];
+  var ky = ['hubot', 'hubot-scripts'];
   keywords = keywords.split(',').map(function(k){return k.trim()})
   ky = _.union(ky, keywords);
   return '["' + ky.join('","') + '"]';
@@ -50,8 +50,8 @@ module.exports = yeoman.Base.extend({
       this.pkg = require('../package.json');
       banner();
       this.log(
-        '\nWelcome to the CatOps Hubot script generator, brought\n' +
-        'to you by the ' + chalk.green('Consumer Financial Protection Bureau') + '.'
+        '\nWelcome to the CatOps Hubot script generator!\n' +
+        'To learn more about Hubot, visit ' + chalk.underline('https://hubot.github.com/') + '\n'
       );
   },
 
@@ -74,7 +74,7 @@ module.exports = yeoman.Base.extend({
         {
           name: 'scriptKeywords',
           message: 'Keywords (comma-separated)',
-          default: 'hubot, hubot-scripts, catops'
+          default: 'hubot, hubot-scripts'
         },
         {
           name: 'needStorage',
@@ -87,17 +87,24 @@ module.exports = yeoman.Base.extend({
           message: 'Will this script make use of environment variables (to store things like API keys)?',
           type: 'confirm',
           default: true
+        },
+        {
+          name: 'githubUsername',
+          message: 'What\'s your GitHub username (or org)?',
+          default: 'catops'
         }
       ];
 
       this.prompt(prompts, function (props) {
         this.appname = props.scriptName;
-        this.scriptName = props.scriptName.toLowerCase().replace('catops-', '').replace('hubot-', '');
+        this.scriptName = props.scriptName.toLowerCase().replace('hubot-', '');
         this.scriptNameCamelized = camelizeScriptName(this.scriptName);
         this.robotClassName = capitalizeFirstLetter(camelizeScriptName(this.scriptName));
         this.scriptNameUppercased = this.scriptNameCamelized.toUpperCase();
         this.scriptDescription = props.scriptDescription;
         this.needStorage = props.needStorage;
+        this.githubUsername = props.githubUsername;
+        this.needEnvVariable = props.needConfig;
         this.envVariable = props.needConfig
                          ? 'HUBOT_' + this.scriptNameCamelized.toUpperCase() + '_SETTING - Describe your environment variable.'
                          : 'LIST_OF_ENV_VARS_TO_SET - Describe any optional/required environment variables.'

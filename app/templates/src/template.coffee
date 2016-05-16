@@ -15,8 +15,8 @@
 #   <%= userName %>
 
 <% if (needStorage) { %>class <%= robotClassName %>Robot
-  constructor: (@robot) ->
-    @config = process.env.HUBOT_<%= scriptNameUppercased %>_SETTING or 'whatever the default value should be'
+  constructor: (@robot) -><% if (needEnvVariable) { %>
+    @config = process.env.HUBOT_<%= scriptNameUppercased %>_SETTING or 'whatever the default value should be'<% } %>
     <%= scriptNameCamelized %> = @robot.brain.get '<%= scriptNameCamelized %>'
     @<%= scriptNameCamelized %> = <%= scriptNameCamelized %> or []
     @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
