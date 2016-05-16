@@ -1,6 +1,6 @@
 {
   "name": "generator-hubot-script-mocha",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A generator for simple Hubot scripts with brain storage, environment variables and mocha tests",
   "keywords": [
     "yeoman-generator",
