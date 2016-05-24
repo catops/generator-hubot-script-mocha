@@ -17,9 +17,13 @@
 <% if (needStorage) { %>class <%= robotClassName %>Robot
   constructor: (@robot) -><% if (needEnvVariable) { %>
     @config = process.env.HUBOT_<%= scriptNameUppercased %>_SETTING or 'whatever the default value should be'<% } %>
-    <%= scriptNameCamelized %> = @robot.brain.get '<%= scriptNameCamelized %>'
-    @<%= scriptNameCamelized %> = <%= scriptNameCamelized %> or []
-    @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
+    initialized = false
+    robot.brain.on 'loaded', =>
+      if not initialized
+        initialized = true
+        <%= scriptNameCamelized %> = @robot.brain.get '<%= scriptNameCamelized %>'
+        @<%= scriptNameCamelized %> = <%= scriptNameCamelized %> or []
+        @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
   add: (item) ->
     @<%= scriptNameCamelized %>.push item
     @robot.brain.set '<%= scriptNameCamelized %>', @<%= scriptNameCamelized %>
