@@ -18,7 +18,7 @@
   constructor: (@robot) -><% if (needEnvVariable) { %>
     @config = process.env.HUBOT_<%= scriptNameUppercased %>_SETTING or 'whatever the default value should be'<% } %>
     initialized = false
-    robot.brain.on 'loaded', =>
+    @robot.brain.on 'loaded', =>
       if not initialized
         initialized = true
         <%= scriptNameCamelized %> = @robot.brain.get '<%= scriptNameCamelized %>'
